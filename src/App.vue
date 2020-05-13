@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <transition name="slide-left" mode="out-in">
+    <transition :name="transitionName" mode="out-in">
       <router-view></router-view>
     </transition>
   </div>
@@ -15,9 +15,8 @@ export default {
   }),
   watch: {
     $route(to, from) {
-      console.log("to,from :", to, from);
       if (to.meta.deep - from.meta.deep > 0) {
-        this.transitionName = "slide-left";
+        this.transitionName = "fade";
       }
     }
   }
@@ -33,18 +32,18 @@ export default {
   width: 100vw;
   background: black;
 }
-.slide-left-enter-active,
-.slide-left-leave-active {
+.fade-enter-active,
+.fade-leave-active {
   will-change: transform;
   transition: all 300ms;
 }
 
-.slide-left-enter {
+.fade-enter {
   transition-timing-function: ease-in;
   opacity: 0%;
 }
 
-.slide-left-leave {
+.fade-leave {
   opacity: 100%;
 }
 </style>

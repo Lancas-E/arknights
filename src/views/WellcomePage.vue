@@ -1,5 +1,7 @@
 <template>
   <div id="wellcome-page">
+    <div class="title">明日方舟</div>
+    <img src="../assets/exusiai.jpg" class="wellcome-bg" :style="wellcomeBgStyle" />
     <div class="progress-content">
       <div class="start-btn" :style="startBtnStyle" @click="$router.push({name: 'commandCenter'})"></div>
       <div class="progress-bar" :style="progressStyle"></div>
@@ -14,6 +16,13 @@ export default {
   components: {},
   data: () => ({
     progress: 0,
+    wellcomeBgStyle: {
+      objectFit: "cover",
+      height: "70vh",
+      width: "100vw",
+      filter: "blur(8px)",
+      transition: "0.8s"
+    },
     startBtnStyle: {
       opacity: "0",
       display: "none"
@@ -43,7 +52,8 @@ export default {
         this.startBtnStyle.display = "flex";
         setTimeout(() => {
           this.startBtnStyle.opacity = "100%";
-        },300);
+          this.wellcomeBgStyle.filter = "none";
+        }, 300);
       }
     }
   },
@@ -67,10 +77,24 @@ export default {
 
 <style scoped lang='less'>
 #wellcome-page {
+  display: flex;
+  height: 100vh;
+  align-items: center;
+  .title {
+    position: fixed;
+    top: 6vh;
+    width: 100vw;
+    text-align: center;
+    color: white;
+    font-size: 42px;
+    letter-spacing: 15px;
+    font-style: italic;
+  }
   .progress-content {
     position: fixed;
     width: 100%;
     bottom: 10vh;
+    z-index: 2;
     display: flex;
     flex-direction: column;
     .start-btn {
@@ -125,6 +149,7 @@ export default {
     .progress-percent {
       margin-top: 5px;
       text-align: center;
+      color: grey;
       font-size: 20px;
       font-weight: 600;
       font-family: fantasy;
