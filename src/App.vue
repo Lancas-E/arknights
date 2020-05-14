@@ -28,6 +28,7 @@ export default {
   margin: 0;
 }
 #app {
+  display: flow-root;
   height: 100vh;
   width: 100vw;
   background: black;
