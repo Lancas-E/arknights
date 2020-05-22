@@ -1,9 +1,9 @@
 <template>
   <div id="wellcome-page">
     <div class="title">明日方舟</div>
-    <img src="../assets/exusiai.jpg" class="wellcome-bg" :style="wellcomeBgStyle" />
+    <img src="../assets/rhodes_island.png" class="wellcome-bg" :style="wellcomeBgStyle" />
     <div class="progress-content">
-      <div class="start-btn" :style="startBtnStyle" @click="$router.push({name: 'commandCenter'})"></div>
+      <div class="start-btn" :style="startBtnStyle" @click="clickStartBtn"></div>
       <div class="progress-bar" :style="progressStyle"></div>
       <div class="progress-percent" :style="progressPercentStyle">{{Math.floor(progress)}}%</div>
     </div>
@@ -58,19 +58,30 @@ export default {
     }
   },
   methods: {
-    increase() {
-      const inc = Math.random() * 20;
-      if (this.progress + inc > 100) {
-        this.progress = 100;
-      } else {
-        this.progress += inc;
-      }
+    startProgress() {
+      this.timer = setInterval(() => {
+        const inc = Math.random() * 20;
+        if (this.progress + inc > 100) {
+          this.progress = 100;
+          clearInterval(this.timer)
+        } else {
+          this.progress += inc;
+        }
+      }, 300);
+    },
+    endProgress() {
+      clearInterval(this.timer)
+    },
+    clickStartBtn() {
+      this.$router.push({ name: "commandCenter" });
+      this.startBtnStyle.display = "none";
     }
   },
   mounted() {
-    setInterval(() => {
-      this.increase();
-    }, 300);
+    this.startProgress()
+  },
+  unmounted() {
+    this.endProgress()
   }
 };
 </script>
@@ -92,7 +103,7 @@ export default {
   }
   .progress-content {
     position: fixed;
-    width: 100%;
+    width: 100vw;
     bottom: 10vh;
     z-index: 2;
     display: flex;

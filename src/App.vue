@@ -27,6 +27,9 @@ export default {
 * {
   margin: 0;
 }
+html {
+  overflow: hidden !important;
+}
 #app {
   display: flow-root;
   height: 100vh;
